@@ -19,6 +19,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.ViewPropertyAnimation;
 import com.kalyanamela.android.R;
 import com.kalyanamela.android.data.model.Profile;
+import com.kalyanamela.android.ui.profile.ProfileActivity;
+import com.kalyanamela.android.utils.AppConstants;
 
 import java.util.List;
 
@@ -75,6 +77,15 @@ public class ProfileListAdapter extends RecyclerView.Adapter<ProfileListAdapter.
                 .thumbnail(0.1f)
                 .animate(animationObject)
                 .into(holder.profileImageView);
+        holder.bannerCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ProfileActivity.class);
+                intent.putExtra("profile", profileResult);
+                intent.putExtra(AppConstants.EXTRA_ADDRESS, profileResult.getComplexionAddress());
+                context.startActivity(intent);
+            }
+        });
         show(holder);
     }
 

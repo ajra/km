@@ -35,7 +35,7 @@
         android:id="@+id/mapViewImageButton"
         android:layout_width="35dp"
         android:layout_height="35dp"
-        android:background="@drawable/book_mark_active"
+        android:background="@drawable/map_icon"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="8dp"
         android:layout_marginRight="8dp"

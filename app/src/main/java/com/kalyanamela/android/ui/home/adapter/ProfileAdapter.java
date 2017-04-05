@@ -20,6 +20,7 @@ import com.bumptech.glide.request.animation.ViewPropertyAnimation;
 import com.kalyanamela.android.R;
 import com.kalyanamela.android.data.model.Profile;
 import com.kalyanamela.android.ui.map.MapsActivity;
+import com.kalyanamela.android.ui.profile.ProfileActivity;
 import com.kalyanamela.android.utils.AppConstants;
 
 import java.util.List;
@@ -62,7 +63,7 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.HomeView
     }
 
     @Override
-    public void onBindViewHolder(final HomeViewAdapter holder, int position) {
+    public void onBindViewHolder(final HomeViewAdapter holder, final int position) {
         final Profile profileResult = profileResultList.get(position);
         holder.birthPlaceTextView.setText(profileResult.getBirthPlace());
         holder.ageTextView.setText(profileResult.getAge());
@@ -77,10 +78,11 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.HomeView
                 .into(holder.bannerImageView);
         show(holder);
 
-        holder.locationMarkerImageView.setOnClickListener(new View.OnClickListener() {
+        holder.bannerCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, MapsActivity.class);
+                Intent intent = new Intent(context, ProfileActivity.class);
+                intent.putExtra("profile", profileResult);
                 intent.putExtra(AppConstants.EXTRA_ADDRESS, profileResult.getComplexionAddress());
                 context.startActivity(intent);
             }

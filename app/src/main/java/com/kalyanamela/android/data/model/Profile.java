@@ -1,9 +1,12 @@
 package com.kalyanamela.android.data.model;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
-public class Profile {
+public class Profile implements Parcelable {
 
     @SerializedName("Id")
     private String id;
@@ -21,16 +24,16 @@ public class Profile {
     private String birthTime;
     private String irupu;
     @SerializedName("About_Me")
-    private Object aboutMe;
-    private Object thisai;
+    private String aboutMe;
+    private String thisai;
     private String religion;
     private String caste;
     private String subcaste;
-    private Object gotharam;
+    private String gotharam;
     private String rasi;
     private String starsign;
     private String lagnam;
-    private Object dosam;
+    private String dosam;
     @SerializedName("dosamDetail")
     private String dosamdetail;
     private String martinativestaus;
@@ -70,11 +73,11 @@ public class Profile {
     @SerializedName("PPCaste")
     private String ppCaste;
     @SerializedName("PPRassi")
-    private Object ppRassi;
+    private String ppRassi;
     @SerializedName("PPStar_Sign")
-    private Object ppStarSign;
+    private String ppStarSign;
     @SerializedName("PPGothram")
-    private Object ppGothram;
+    private String ppGothram;
     @SerializedName("PPmartial_Status")
     private String ppMartialStatus;
     @SerializedName("PPEducation")
@@ -100,9 +103,9 @@ public class Profile {
     @SerializedName("Married_Sis")
     private String marriedSister;
     @SerializedName("father_occupation")
-    private Object fatherOccupation;
+    private String fatherOccupation;
     @SerializedName("mother_occupation")
-    private Object motherOccupation;
+    private String motherOccupation;
 
     public String getId() {
         return id;
@@ -184,11 +187,11 @@ public class Profile {
         this.irupu = irupu;
     }
 
-    public Object getAboutMe() {
+    public String getAboutMe() {
         return aboutMe;
     }
 
-    public void setAboutMe(Object aboutMe) {
+    public void setAboutMe(String aboutMe) {
         this.aboutMe = aboutMe;
     }
 
@@ -196,7 +199,7 @@ public class Profile {
         return thisai;
     }
 
-    public void setThisai(Object thisai) {
+    public void setThisai(String thisai) {
         this.thisai = thisai;
     }
 
@@ -228,7 +231,7 @@ public class Profile {
         return gotharam;
     }
 
-    public void setGotharam(Object gotharam) {
+    public void setGotharam(String gotharam) {
         this.gotharam = gotharam;
     }
 
@@ -260,7 +263,7 @@ public class Profile {
         return dosam;
     }
 
-    public void setDosam(Object dosam) {
+    public void setDosam(String dosam) {
         this.dosam = dosam;
     }
 
@@ -436,7 +439,7 @@ public class Profile {
         return ppRassi;
     }
 
-    public void setPpRassi(Object ppRassi) {
+    public void setPpRassi(String ppRassi) {
         this.ppRassi = ppRassi;
     }
 
@@ -444,7 +447,7 @@ public class Profile {
         return ppStarSign;
     }
 
-    public void setPpStarSign(Object ppStarSign) {
+    public void setPpStarSign(String ppStarSign) {
         this.ppStarSign = ppStarSign;
     }
 
@@ -452,7 +455,7 @@ public class Profile {
         return ppGothram;
     }
 
-    public void setPpGothram(Object ppGothram) {
+    public void setPpGothram(String ppGothram) {
         this.ppGothram = ppGothram;
     }
 
@@ -556,7 +559,7 @@ public class Profile {
         return fatherOccupation;
     }
 
-    public void setFatherOccupation(Object fatherOccupation) {
+    public void setFatherOccupation(String fatherOccupation) {
         this.fatherOccupation = fatherOccupation;
     }
 
@@ -564,7 +567,150 @@ public class Profile {
         return motherOccupation;
     }
 
-    public void setMotherOccupation(Object motherOccupation) {
+    public void setMotherOccupation(String motherOccupation) {
         this.motherOccupation = motherOccupation;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
+        dest.writeString(this.profileNo);
+        dest.writeString(this.name);
+        dest.writeString(this.gender);
+        dest.writeString(this.dob);
+        dest.writeString(this.age);
+        dest.writeString(this.birthPlace);
+        dest.writeString(this.motherTongue);
+        dest.writeString(this.birthTime);
+        dest.writeString(this.irupu);
+        dest.writeString(this.aboutMe);
+        dest.writeString(this.thisai);
+        dest.writeString(this.religion);
+        dest.writeString(this.caste);
+        dest.writeString(this.subcaste);
+        dest.writeString(this.gotharam);
+        dest.writeString(this.rasi);
+        dest.writeString(this.starsign);
+        dest.writeString(this.lagnam);
+        dest.writeString(this.dosam);
+        dest.writeString(this.dosamdetail);
+        dest.writeString(this.martinativestaus);
+        dest.writeString(this.noOfChild);
+        dest.writeString(this.house);
+        dest.writeString(this.residencyCity);
+        dest.writeString(this.mobileNo);
+        dest.writeString(this.complexionAddress);
+        dest.writeString(this.height);
+        dest.writeString(this.weight);
+        dest.writeString(this.eatingHabit);
+        dest.writeString(this.education);
+        dest.writeString(this.monthlyIncome);
+        dest.writeString(this.profileImage);
+        dest.writeString(this.profileThump);
+        dest.writeString(this.physicalStatus);
+        dest.writeString(this.Occupation);
+        dest.writeString(this.ppAgeFrom);
+        dest.writeString(this.ppAgeTo);
+        dest.writeString(this.ppMonthlyIncome);
+        dest.writeString(this.ppReligion);
+        dest.writeString(this.ppCaste);
+        dest.writeString(this.ppRassi);
+        dest.writeString(this.ppStarSign);
+        dest.writeString(this.ppGothram);
+        dest.writeString(this.ppMartialStatus);
+        dest.writeString(this.ppEducation);
+        dest.writeString(this.ppSubCaste);
+        dest.writeString(this.ppComplexion);
+        dest.writeString(this.ppEatingHabit);
+        dest.writeString(this.ppPhyStatus);
+        dest.writeString(this.fatherNameEn);
+        dest.writeString(this.motherNameEn);
+        dest.writeString(this.noOfBrother);
+        dest.writeString(this.noOfSister);
+        dest.writeString(this.marriedBro);
+        dest.writeString(this.marriedSister);
+        dest.writeString(this.fatherOccupation);
+        dest.writeString(this.motherOccupation);
+    }
+
+    public Profile() {
+    }
+
+    protected Profile(Parcel in) {
+        this.id = in.readString();
+        this.profileNo = in.readString();
+        this.name = in.readString();
+        this.gender = in.readString();
+        this.dob = in.readString();
+        this.age = in.readString();
+        this.birthPlace = in.readString();
+        this.motherTongue = in.readString();
+        this.birthTime = in.readString();
+        this.irupu = in.readString();
+        this.aboutMe = in.readParcelable(Object.class.getClassLoader());
+        this.thisai = in.readParcelable(Object.class.getClassLoader());
+        this.religion = in.readString();
+        this.caste = in.readString();
+        this.subcaste = in.readString();
+        this.gotharam = in.readParcelable(Object.class.getClassLoader());
+        this.rasi = in.readString();
+        this.starsign = in.readString();
+        this.lagnam = in.readString();
+        this.dosam = in.readParcelable(Object.class.getClassLoader());
+        this.dosamdetail = in.readString();
+        this.martinativestaus = in.readString();
+        this.noOfChild = in.readString();
+        this.house = in.readString();
+        this.residencyCity = in.readString();
+        this.mobileNo = in.readString();
+        this.complexionAddress = in.readString();
+        this.height = in.readString();
+        this.weight = in.readString();
+        this.eatingHabit = in.readString();
+        this.education = in.readString();
+        this.monthlyIncome = in.readString();
+        this.profileImage = in.readString();
+        this.profileThump = in.readString();
+        this.physicalStatus = in.readString();
+        this.Occupation = in.readString();
+        this.ppAgeFrom = in.readString();
+        this.ppAgeTo = in.readString();
+        this.ppMonthlyIncome = in.readString();
+        this.ppReligion = in.readString();
+        this.ppCaste = in.readString();
+        this.ppRassi = in.readParcelable(Object.class.getClassLoader());
+        this.ppStarSign = in.readParcelable(Object.class.getClassLoader());
+        this.ppGothram = in.readParcelable(Object.class.getClassLoader());
+        this.ppMartialStatus = in.readString();
+        this.ppEducation = in.readString();
+        this.ppSubCaste = in.readString();
+        this.ppComplexion = in.readString();
+        this.ppEatingHabit = in.readString();
+        this.ppPhyStatus = in.readString();
+        this.fatherNameEn = in.readString();
+        this.motherNameEn = in.readString();
+        this.noOfBrother = in.readString();
+        this.noOfSister = in.readString();
+        this.marriedBro = in.readString();
+        this.marriedSister = in.readString();
+        this.fatherOccupation = in.readParcelable(Object.class.getClassLoader());
+        this.motherOccupation = in.readParcelable(Object.class.getClassLoader());
+    }
+
+    public static final Parcelable.Creator<Profile> CREATOR = new Parcelable.Creator<Profile>() {
+        @Override
+        public Profile createFromParcel(Parcel source) {
+            return new Profile(source);
+        }
+
+        @Override
+        public Profile[] newArray(int size) {
+            return new Profile[size];
+        }
+    };
 }

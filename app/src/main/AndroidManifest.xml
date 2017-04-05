@@ -56,9 +56,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.home.HomeActivity" />
         </activity>
+
         <service
             android:name=".utils.GeocodeAddressIntentService"
-            android:exported="false"/>
+            android:exported="false" />
+
+        <activity android:name=".ui.profile.ProfileActivity"></activity>
     </application>
 
 </manifest>

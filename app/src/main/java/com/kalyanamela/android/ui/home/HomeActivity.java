@@ -112,6 +112,7 @@ public class HomeActivity extends BaseActivity implements HomeMvpView, OnMapRead
         // googleMapView.getMapAsync(this);
         mResultReceiver = new AddressResultReceiver(null);
         mPresenter.getTopProfileList();
+
     }
 
     @Override
@@ -149,8 +150,7 @@ public class HomeActivity extends BaseActivity implements HomeMvpView, OnMapRead
             setAdapter();
             if (!profileList.isEmpty())
                 address = profileList.get(0).getComplexionAddress();
-            if (address != null)
-                getLatitudeAndLongitude();
+            listButtonEnabled();
         }
 
     }
@@ -177,6 +177,8 @@ public class HomeActivity extends BaseActivity implements HomeMvpView, OnMapRead
                 mapViewImageButton.setEnabled(false);
                 recyclerView.setVisibility(View.GONE);
                 mapContraintLayout.setVisibility(View.VISIBLE);
+                if (address != null)
+                    getLatitudeAndLongitude();
                 break;
         }
     }
@@ -255,7 +257,7 @@ public class HomeActivity extends BaseActivity implements HomeMvpView, OnMapRead
                             String mess = "Latitude: " + address.getLatitude() + "\n" +
                                     "Longitude: " + address.getLongitude() + "\n" +
                                     "Address: " + resultData.getString(AppConstants.RESULT_DATA_KEY);
-                            Toast.makeText(HomeActivity.this, mess, Toast.LENGTH_LONG).show();
+                           // Toast.makeText(HomeActivity.this, mess, Toast.LENGTH_LONG).show();
                             setMarkersValues(mMap, address);
                         }
                     });
