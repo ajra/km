@@ -5,9 +5,12 @@ import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.os.ResultReceiver;
 import android.text.TextUtils;
 import android.util.Log;
+
+import com.kalyanamela.android.data.model.Profile;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,21 +31,53 @@ public class GeocodeAddressIntentService extends IntentService {
         Log.e(TAG, "onHandleIntent");
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
         String errorMessage = "";
-        List<Address> addresses = null;
-
+        List<Address> addresses;
+        List<Profile> profileList = null;
         int fetchType = intent.getIntExtra(AppConstants.FETCH_TYPE_EXTRA, 0);
         Log.e(TAG, "fetchType == " + fetchType);
-
+        resultReceiver = intent.getParcelableExtra(AppConstants.RECEIVER);
         if(fetchType == AppConstants.USE_ADDRESS_NAME) {
-            String name = intent.getStringExtra(AppConstants.LOCATION_NAME_DATA_EXTRA);
-            try {
-                addresses = geocoder.getFromLocationName(name, 1);
-            } catch (IOException e) {
-                errorMessage = "Service not available";
-                Log.e(TAG, errorMessage, e);
+            profileList = intent.getParcelableArrayListExtra(AppConstants.LOCATION_NAME_DATA_EXTRA);
+            if (profileList != null && !profileList.isEmpty()) {
+                int size = profileList.size();
+                for (int j = 0 ; j < size ; j++) {
+
+                    try {
+                        Profile profile = profileList.get(j);
+                        addresses = geocoder.getFromLocationName(profile.getComplexionAddress(), 1);
+
+                        if (addresses == null || addresses.isEmpty()) {
+                            if (errorMessage.isEmpty()) {
+                                errorMessage = "Not Found";
+                                Log.e(TAG, errorMessage);
+                            }
+                           // deliverResultToReceiver(AppConstants.FAILURE_RESULT, errorMessage, null);
+                        } else {
+                            for (Address address : addresses) {
+                                String outputAddress = "";
+                                for (int i = 0; i < address.getMaxAddressLineIndex(); i++) {
+                                    outputAddress += " --- " + address.getAddressLine(i);
+                                }
+                                Log.e(TAG, outputAddress);
+                            }
+                            Address address = addresses.get(0);
+                            ArrayList<String> addressFragments = new ArrayList<>();
+
+                            for (int i = 0; i < address.getMaxAddressLineIndex(); i++) {
+                                addressFragments.add(address.getAddressLine(i));
+                            }
+                            Log.i(TAG, "Address Found");
+                            profileList.get(j).setLatitude(address.getLatitude());
+                            profileList.get(j).setLongitude(address.getLongitude());
+                        }
+                    } catch (IOException e) {
+                        errorMessage = "Service not available";
+                        Log.e(TAG, errorMessage, e);
+                    }
+                }
             }
-        }
-        else if(fetchType == AppConstants.USE_ADDRESS_LOCATION) {
+
+        } else if(fetchType == AppConstants.USE_ADDRESS_LOCATION) {
             double latitude = intent.getDoubleExtra(AppConstants.LOCATION_LATITUDE_DATA_EXTRA, 0);
             double longitude = intent.getDoubleExtra(AppConstants.LOCATION_LONGITUDE_DATA_EXTRA, 0);
 
@@ -63,38 +98,13 @@ public class GeocodeAddressIntentService extends IntentService {
             Log.e(TAG, errorMessage);
         }
 
-        resultReceiver = intent.getParcelableExtra(AppConstants.RECEIVER);
-        if (addresses == null || addresses.size()  == 0) {
-            if (errorMessage.isEmpty()) {
-                errorMessage = "Not Found";
-                Log.e(TAG, errorMessage);
-            }
-            deliverResultToReceiver(AppConstants.FAILURE_RESULT, errorMessage, null);
-        } else {
-            for(Address address : addresses) {
-                String outputAddress = "";
-                for(int i = 0; i < address.getMaxAddressLineIndex(); i++) {
-                    outputAddress += " --- " + address.getAddressLine(i);
-                }
-                Log.e(TAG, outputAddress);
-            }
-            Address address = addresses.get(0);
-            ArrayList<String> addressFragments = new ArrayList<>();
-
-            for(int i = 0; i < address.getMaxAddressLineIndex(); i++) {
-                addressFragments.add(address.getAddressLine(i));
-            }
-            Log.i(TAG, "Address Found");
-            deliverResultToReceiver(AppConstants.SUCCESS_RESULT,
-                    TextUtils.join(System.getProperty("line.separator"),
-                            addressFragments), address);
-        }
+        deliverResultToReceiver(AppConstants.SUCCESS_RESULT, profileList);
     }
 
-    private void deliverResultToReceiver(int resultCode, String message, Address address) {
+
+    private void deliverResultToReceiver(int resultCode, List<Profile> profileList) {
         Bundle bundle = new Bundle();
-        bundle.putParcelable(AppConstants.RESULT_ADDRESS, address);
-        bundle.putString(AppConstants.RESULT_DATA_KEY, message);
+        bundle.putParcelableArrayList(AppConstants.RESULT_ADDRESS, (ArrayList<? extends Parcelable>) profileList);
         resultReceiver.send(resultCode, bundle);
     }
 

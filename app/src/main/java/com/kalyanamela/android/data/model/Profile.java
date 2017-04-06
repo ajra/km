@@ -34,6 +34,8 @@ public class Profile implements Parcelable {
     private String starsign;
     private String lagnam;
     private String dosam;
+    private double latitude;
+    private double longitude;
     @SerializedName("dosamDetail")
     private String dosamdetail;
     private String martinativestaus;
@@ -195,7 +197,7 @@ public class Profile implements Parcelable {
         this.aboutMe = aboutMe;
     }
 
-    public Object getThisai() {
+    public String getThisai() {
         return thisai;
     }
 
@@ -227,7 +229,7 @@ public class Profile implements Parcelable {
         this.subcaste = subcaste;
     }
 
-    public Object getGotharam() {
+    public String getGotharam() {
         return gotharam;
     }
 
@@ -259,12 +261,28 @@ public class Profile implements Parcelable {
         this.lagnam = lagnam;
     }
 
-    public Object getDosam() {
+    public String getDosam() {
         return dosam;
     }
 
     public void setDosam(String dosam) {
         this.dosam = dosam;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
     public String getDosamdetail() {
@@ -435,7 +453,7 @@ public class Profile implements Parcelable {
         this.ppCaste = ppCaste;
     }
 
-    public Object getPpRassi() {
+    public String getPpRassi() {
         return ppRassi;
     }
 
@@ -443,7 +461,7 @@ public class Profile implements Parcelable {
         this.ppRassi = ppRassi;
     }
 
-    public Object getPpStarSign() {
+    public String getPpStarSign() {
         return ppStarSign;
     }
 
@@ -451,7 +469,7 @@ public class Profile implements Parcelable {
         this.ppStarSign = ppStarSign;
     }
 
-    public Object getPpGothram() {
+    public String getPpGothram() {
         return ppGothram;
     }
 
@@ -555,7 +573,7 @@ public class Profile implements Parcelable {
         this.marriedSister = marriedSister;
     }
 
-    public Object getFatherOccupation() {
+    public String getFatherOccupation() {
         return fatherOccupation;
     }
 
@@ -563,7 +581,7 @@ public class Profile implements Parcelable {
         this.fatherOccupation = fatherOccupation;
     }
 
-    public Object getMotherOccupation() {
+    public String getMotherOccupation() {
         return motherOccupation;
     }
 
@@ -598,6 +616,8 @@ public class Profile implements Parcelable {
         dest.writeString(this.starsign);
         dest.writeString(this.lagnam);
         dest.writeString(this.dosam);
+        dest.writeDouble(this.latitude);
+        dest.writeDouble(this.longitude);
         dest.writeString(this.dosamdetail);
         dest.writeString(this.martinativestaus);
         dest.writeString(this.noOfChild);
@@ -652,16 +672,18 @@ public class Profile implements Parcelable {
         this.motherTongue = in.readString();
         this.birthTime = in.readString();
         this.irupu = in.readString();
-        this.aboutMe = in.readParcelable(Object.class.getClassLoader());
-        this.thisai = in.readParcelable(Object.class.getClassLoader());
+        this.aboutMe = in.readString();
+        this.thisai = in.readString();
         this.religion = in.readString();
         this.caste = in.readString();
         this.subcaste = in.readString();
-        this.gotharam = in.readParcelable(Object.class.getClassLoader());
+        this.gotharam = in.readString();
         this.rasi = in.readString();
         this.starsign = in.readString();
         this.lagnam = in.readString();
-        this.dosam = in.readParcelable(Object.class.getClassLoader());
+        this.dosam = in.readString();
+        this.latitude = in.readDouble();
+        this.longitude = in.readDouble();
         this.dosamdetail = in.readString();
         this.martinativestaus = in.readString();
         this.noOfChild = in.readString();
@@ -683,9 +705,9 @@ public class Profile implements Parcelable {
         this.ppMonthlyIncome = in.readString();
         this.ppReligion = in.readString();
         this.ppCaste = in.readString();
-        this.ppRassi = in.readParcelable(Object.class.getClassLoader());
-        this.ppStarSign = in.readParcelable(Object.class.getClassLoader());
-        this.ppGothram = in.readParcelable(Object.class.getClassLoader());
+        this.ppRassi = in.readString();
+        this.ppStarSign = in.readString();
+        this.ppGothram = in.readString();
         this.ppMartialStatus = in.readString();
         this.ppEducation = in.readString();
         this.ppSubCaste = in.readString();
@@ -698,8 +720,8 @@ public class Profile implements Parcelable {
         this.noOfSister = in.readString();
         this.marriedBro = in.readString();
         this.marriedSister = in.readString();
-        this.fatherOccupation = in.readParcelable(Object.class.getClassLoader());
-        this.motherOccupation = in.readParcelable(Object.class.getClassLoader());
+        this.fatherOccupation = in.readString();
+        this.motherOccupation = in.readString();
     }
 
     public static final Parcelable.Creator<Profile> CREATOR = new Parcelable.Creator<Profile>() {
