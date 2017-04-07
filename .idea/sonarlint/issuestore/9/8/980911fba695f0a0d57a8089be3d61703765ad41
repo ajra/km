@@ -1,0 +1,6 @@
+
+psquid:S00116"URename this field "Occupation" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¿ ýíøÿÿÿÿ
+\squid:S1213";Move this constructor to comply with Java Code Conventions.(¡Á·¤ÿÿÿÿÿ8Ù¶¢š´+
+Wsquid:S1213";Move this constructor to comply with Java Code Conventions.(â»Ú§8Ù¶¢š´+
+Ysquid:S1213"8Move this variable to comply with Java Code Conventions.(ü×ä„ÿÿÿÿÿ8Ù¶¢š´+
+¢squid:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¡Á·¤ÿÿÿÿÿ8Ù¶¢š´+

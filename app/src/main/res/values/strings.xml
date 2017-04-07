@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">KalyanaMela</string>
+    <string name="app_name">Kalyana Mela</string>
     <string name="title_activity_home">Profile</string>
+    <string name="title_activity_profile">Profile</string>
 
     <!--App Message-->
     <string name="api_retry_error">Please retry!</string>

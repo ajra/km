@@ -1,0 +1,25 @@
+
+gsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(„ì©‘8¾Û´™´+
+^squid:S1244"=Equality tests should not be made with floating point values.(Ú—‡Šøÿÿÿÿ8„úÁ˜´+
+Jsquid:S1172"0Remove this unused method parameter "googleMap".(±â÷ýþÿÿÿÿ
+fsquid:HiddenFieldCheck"?Rename "profileList" which hides the field declared at line 64.(‹³÷£8¾Û´™´+
+ƒsquid:S1151"iReduce this switch case number of lines from 8 to at most 5, for example by extracting code into methods.(ž‡Ëýþÿÿÿÿ
+^squid:S1244"=Equality tests should not be made with floating point values.(Ú—‡Šøÿÿÿÿ8„úÁ˜´+
+Tsquid:UselessParenthesesCheck"!Remove those useless parentheses.(¥Ó”»þÿÿÿÿ8ÌžÛš´+
+gsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(–°ò¿8°Ç³š´+
+9squid:S2131"Use "Float.toString" instead.(ÓóŽ¢8°¤Óš´+
+Lsquid:S1068"2Remove this unused "profileAdapter" private field.(ôŽßßüÿÿÿÿ
+–squid:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(™²ü˜
+lsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(’‚ýøÿÿÿÿ8ý•Å˜´+
+esquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(¨Öß»ûÿÿÿÿ
+esquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(Œ§¿ºøÿÿÿÿ
+jsquid:MaximumInheritanceDepth"<This class has 9 parents which is greater than 5 authorized.(¾îü’8ƒÌ‹š´+
+t
+squid:S135"YReduce the total number of break and continue statements in this loop to use at most one.(ƒéîö8°®Òš´+
+>squid:S2131"Use "Float.toString" instead.(ž»þÌÿÿÿÿÿ8°¤Óš´+
+\squid:HiddenFieldCheck"7Rename "fab" which hides the field declared at line 75.(¡óˆšýÿÿÿÿ
+lsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ßÈ“²ýÿÿÿÿ8®‚Ÿ—´+
+~squid:S1151"iReduce this switch case number of lines from 9 to at most 5, for example by extracting code into methods.(Ž¸á§
+9squid:S2131"Use "Float.toString" instead.(˜—£¾8°¤Óš´+
+9squid:S2131"Use "Float.toString" instead.(¶êÐ†8°¤Óš´+
+Osquid:S3398".Move this method into "AddressResultReceiver".(±â÷ýþÿÿÿÿ8¬×—˜´+

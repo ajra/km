@@ -26,7 +26,6 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -40,6 +39,7 @@ import com.kalyanamela.android.data.model.ProfileResponse;
 import com.kalyanamela.android.ui.base.BaseActivity;
 import com.kalyanamela.android.ui.home.adapter.ProfileAdapter;
 import com.kalyanamela.android.ui.home.adapter.ProfileListAdapter;
+import com.kalyanamela.android.ui.profile.ProfileActivity;
 import com.kalyanamela.android.utils.AppConstants;
 import com.kalyanamela.android.utils.GeocodeAddressIntentService;
 
@@ -74,7 +74,6 @@ public class HomeActivity extends BaseActivity implements HomeMvpView, OnMapRead
     ConstraintLayout mapContraintLayout;
     @BindView(R.id.fab)
     FloatingActionButton fab;
-    private ProfileAdapter profileAdapter;
     private Context context = HomeActivity.this;
     private GoogleMap mMap;
     String address;
@@ -120,22 +119,15 @@ public class HomeActivity extends BaseActivity implements HomeMvpView, OnMapRead
                 super.onScrollStateChanged(recyclerView, newState);
             }
         });
-        // googleMapView.getMapAsync(this);
         mResultReceiver = new AddressResultReceiver(null);
-        mPresenter.getTopProfileList();
-
+        setUp();
     }
 
     @Override
     protected void setUp() {
-
+        mPresenter.getTopProfileList();
     }
 
-    @Override
-    protected void onDestroy() {
-        mPresenter.onDetach();
-        super.onDestroy();
-    }
 
     private void setAdapter() {
         RecyclerView.ItemAnimator animator = recyclerView.getItemAnimator();
@@ -147,7 +139,6 @@ public class HomeActivity extends BaseActivity implements HomeMvpView, OnMapRead
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
-        // listButtonEnabled();
     }
 
     public static Intent getStartIntent(Context context) {
@@ -173,29 +164,47 @@ public class HomeActivity extends BaseActivity implements HomeMvpView, OnMapRead
                 listButtonEnabled();
                 break;
             case R.id.cardImageButton:
-                listImageButton.setEnabled(true);
-                cardImageButton.setEnabled(false);
-                mapViewImageButton.setEnabled(true);
-                ProfileAdapter homeAdapter = new ProfileAdapter(context, profileList);
-                recyclerView.setAdapter(homeAdapter);
-                homeAdapter.notifyDataSetChanged();
-                recyclerView.setVisibility(View.VISIBLE);
-                mapContraintLayout.setVisibility(View.GONE);
+                showCardDetails();
                 break;
             case R.id.mapViewImageButton:
-                listImageButton.setEnabled(true);
-                cardImageButton.setEnabled(true);
-                mapViewImageButton.setEnabled(false);
-                recyclerView.setVisibility(View.GONE);
-                mapContraintLayout.setVisibility(View.VISIBLE);
-                if (address != null)
-                    getLatitudeAndLongitude();
+                showMapDetails();
                 break;
             default:
         }
     }
 
+    private void showMapDetails() {
+        listImageButton.setVisibility(View.VISIBLE);
+        cardImageButton.setVisibility(View.VISIBLE);
+        mapViewImageButton.setVisibility(View.INVISIBLE);
+        listImageButton.setEnabled(true);
+        cardImageButton.setEnabled(true);
+        mapViewImageButton.setEnabled(false);
+        recyclerView.setVisibility(View.GONE);
+        mapContraintLayout.setVisibility(View.VISIBLE);
+        if (address != null)
+            getLatitudeAndLongitude();
+    }
+
+    private void showCardDetails() {
+        listImageButton.setEnabled(true);
+        listImageButton.setVisibility(View.VISIBLE);
+        cardImageButton.setVisibility(View.INVISIBLE);
+        mapViewImageButton.setVisibility(View.VISIBLE);
+        cardImageButton.setEnabled(false);
+        mapViewImageButton.setEnabled(true);
+        ProfileAdapter homeAdapter = new ProfileAdapter(context, profileList);
+        recyclerView.setAdapter(homeAdapter);
+        homeAdapter.notifyDataSetChanged();
+        recyclerView.setVisibility(View.VISIBLE);
+        mapContraintLayout.setVisibility(View.GONE);
+    }
+
     private void listButtonEnabled() {
+        listImageButton.setVisibility(View.INVISIBLE);
+        cardImageButton.setVisibility(View.VISIBLE);
+        mapViewImageButton.setVisibility(View.VISIBLE);
+
         listImageButton.setEnabled(false);
         cardImageButton.setEnabled(true);
         mapViewImageButton.setEnabled(true);
@@ -219,7 +228,6 @@ public class HomeActivity extends BaseActivity implements HomeMvpView, OnMapRead
                 Toast.makeText(this, "Please enter an address name", Toast.LENGTH_LONG).show();
                 return;
             }
-            //intent.putExtra(AppConstants.LOCATION_NAME_DATA_EXTRA, address);
             intent.putParcelableArrayListExtra(AppConstants.LOCATION_NAME_DATA_EXTRA, (ArrayList<? extends Parcelable>) profileList);
         }
         startService(intent);
@@ -229,12 +237,9 @@ public class HomeActivity extends BaseActivity implements HomeMvpView, OnMapRead
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        if (address != null) {
-           // getLatitudeAndLongitude();
-        }
     }
 
-    private void setMarkersValues(GoogleMap googleMap, List<Profile> profileList) {
+    private void setMarkersValues(List<Profile> profileList) {
         if (profileList != null && mMap != null) {//Controls to ensure it is right address such as country etc.
             // Set a listener for marker click.
             mMap.setOnMarkerClickListener(this);
@@ -256,19 +261,15 @@ public class HomeActivity extends BaseActivity implements HomeMvpView, OnMapRead
                                     MarkerOptions markerOptions = new MarkerOptions()
                                             .position(sydney)
                                             .title(profile.getName());
-                                    mMap.addMarker(markerOptions).setIcon(BitmapDescriptorFactory.fromBitmap(resource));
+                                    Marker marker = mMap.addMarker(markerOptions);
+                                    marker.setIcon(BitmapDescriptorFactory.fromBitmap(resource));
+                                    marker.setTag(profile.getId());
                                 }
                             });
+                    MapsInitializer.initialize(this);
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
                     //Move the camera to the user's location and zoom in!
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(sydney, 20.0f));
-                    CameraUpdate cameraUpdate;
-                    cameraUpdate = CameraUpdateFactory.newLatLngZoom(sydney, 16);
-                    MapsInitializer.initialize(this);
-                    mMap.animateCamera(CameraUpdateFactory.newLatLng(sydney));
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-                    mMap.animateCamera(cameraUpdate);
-
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(sydney, 6.0f));
                 }
             }
             hideLoading();
@@ -278,16 +279,19 @@ public class HomeActivity extends BaseActivity implements HomeMvpView, OnMapRead
     @Override
     public boolean onMarkerClick(Marker marker) {
 // Retrieve the data from the marker.
-        Integer clickCount = (Integer) marker.getTag();
+        String clickCount = (String) marker.getTag();
 
         // Check if a click count was set, then display the click count.
         if (clickCount != null) {
-            clickCount = clickCount + 1;
-            marker.setTag(clickCount);
-            Toast.makeText(this,
-                    marker.getTitle() +
-                            " has been clicked " + clickCount + " times.",
-                    Toast.LENGTH_SHORT).show();
+            for (final Profile profile : profileList){
+               if ( profile.getId().equalsIgnoreCase(clickCount)) {
+                   Intent intent = new Intent(context, ProfileActivity.class);
+                   intent.putExtra("profile", profile);
+                   intent.putExtra(AppConstants.EXTRA_ADDRESS, profile.getComplexionAddress());
+                   context.startActivity(intent);
+               }
+            }
+
         }
 
         return false;
@@ -335,35 +339,28 @@ public class HomeActivity extends BaseActivity implements HomeMvpView, OnMapRead
 
     // Return whether marker with same location is already on map
     private boolean mapAlreadyHasMarkerForLocation(String location) {
-        return (markerLocation.containsValue(location));
+        return markerLocation.containsValue(location);
     }
 
     private class AddressResultReceiver extends ResultReceiver {
-        public AddressResultReceiver(Handler handler) {
+        private AddressResultReceiver(Handler handler) {
             super(handler);
         }
 
         @Override
         protected void onReceiveResult(int resultCode, final Bundle resultData) {
             if (resultCode == AppConstants.SUCCESS_RESULT) {
-                //final Address address = resultData.getParcelable(AppConstants.RESULT_ADDRESS);
                 final List<Profile> profileList = resultData.getParcelableArrayList(AppConstants.RESULT_ADDRESS);
                 if (profileList != null) {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            setMarkersValues(mMap, profileList);
+                            setMarkersValues(profileList);
                         }
                     });
                 }
-            } else {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                      //  Toast.makeText(HomeActivity.this, resultData.getString(AppConstants.RESULT_DATA_KEY), Toast.LENGTH_LONG).show();
-                    }
-                });
             }
         }
     }
+
 }

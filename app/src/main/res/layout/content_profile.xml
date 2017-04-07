@@ -16,20 +16,21 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/text_border"
                 android:hint="Name"
                 android:paddingTop="6dp"
                 android:paddingBottom="8dp"
                 android:paddingLeft="6dp"
                 android:textSize="14sp"
+                style="@style/TextAppearance.Text.Bold"
                 android:textColor="@color/colorAccent"
                 android:gravity="center_vertical"/>
             <TextView
                 android:id="@+id/nameTextView"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Text 1" />
+                android:layout_gravity="left"
+                android:padding="20dp"
+                />
         </LinearLayout>
 
     </android.support.v7.widget.CardView>
@@ -46,11 +47,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/text_border"
                 android:hint="Age"
                 android:paddingTop="6dp"
                 android:paddingBottom="8dp"
                 android:paddingLeft="6dp"
+                style="@style/TextAppearance.Text.Bold"
                 android:textSize="14sp"
                 android:textColor="@color/colorAccent"
                 android:gravity="center_vertical"/>
@@ -58,8 +59,8 @@
                 android:id="@+id/ageTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Text 1" />
+                android:layout_gravity="left"
+                android:padding="20dp"/>
         </LinearLayout>
     </android.support.v7.widget.CardView>
 
@@ -76,11 +77,11 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/text_border"
             android:hint="Gender"
             android:paddingTop="6dp"
             android:paddingBottom="8dp"
             android:paddingLeft="6dp"
+            style="@style/TextAppearance.Text.Bold"
             android:textSize="14sp"
             android:textColor="@color/colorAccent"
             android:gravity="center_vertical"/>
@@ -88,8 +89,9 @@
             android:id="@+id/genderTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Text 1" />
+            android:layout_gravity="left"
+            android:padding="20dp"
+             />
         </LinearLayout>
     </android.support.v7.widget.CardView>
 
@@ -105,20 +107,21 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/text_border"
             android:hint="DOB"
             android:paddingTop="6dp"
             android:paddingBottom="8dp"
             android:paddingLeft="6dp"
             android:textSize="14sp"
+            style="@style/TextAppearance.Text.Bold"
             android:textColor="@color/colorAccent"
             android:gravity="center_vertical"/>
         <TextView
             android:id="@+id/dobTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Text 1" />
+            android:layout_gravity="left"
+            android:padding="20dp"
+            />
         </LinearLayout>
     </android.support.v7.widget.CardView>
 
@@ -136,19 +139,21 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/text_border"
-            android:hint="About Me"
+            android:hint="Religion - Caste - Sub caste - Rasi - Star Sign"
             android:paddingTop="6dp"
             android:paddingBottom="8dp"
             android:paddingLeft="6dp"
             android:textSize="14sp"
+            style="@style/TextAppearance.Text.Bold"
             android:textColor="@color/colorAccent"
             android:gravity="center_vertical"/>
         <TextView
             android:id="@+id/aboutMeTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Text 1" />
+            android:layout_gravity="left"
+            android:padding="20dp"
+             />
         </LinearLayout>
     </android.support.v7.widget.CardView>
 
@@ -169,14 +174,16 @@
                 android:paddingBottom="8dp"
                 android:paddingLeft="6dp"
                 android:textSize="14sp"
+                style="@style/TextAppearance.Text.Bold"
                 android:textColor="@color/colorAccent"
                 android:gravity="center_vertical"/>
             <TextView
                 android:id="@+id/residenceCityTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Text 1" />
+                android:layout_gravity="left"
+                android:padding="20dp"
+                />
         </LinearLayout>
 
     </android.support.v7.widget.CardView>
@@ -200,14 +207,16 @@
             android:paddingBottom="8dp"
             android:paddingLeft="6dp"
             android:textSize="14sp"
+            style="@style/TextAppearance.Text.Bold"
             android:textColor="@color/colorAccent"
             android:gravity="center_vertical"/>
         <TextView
             android:id="@+id/mobileNumberTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Text 1" />
+            android:layout_gravity="left"
+            android:padding="20dp"
+            />
         </LinearLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>

@@ -8,6 +8,9 @@ import com.kalyanamela.android.di.PerActivity;
 import com.kalyanamela.android.ui.home.HomeMvpPresenter;
 import com.kalyanamela.android.ui.home.HomeMvpView;
 import com.kalyanamela.android.ui.home.HomePresenter;
+import com.kalyanamela.android.ui.profile.ProfileMvpPresenter;
+import com.kalyanamela.android.ui.profile.ProfileMvpView;
+import com.kalyanamela.android.ui.profile.ProfilePresenter;
 import com.kalyanamela.android.ui.splash.SplashMvpPresenter;
 import com.kalyanamela.android.ui.splash.SplashMvpView;
 import com.kalyanamela.android.ui.splash.SplashPresenter;
@@ -51,6 +54,13 @@ public class ActivityModule {
     @PerActivity
     HomeMvpPresenter<HomeMvpView> provideHomePresenter(HomePresenter<HomeMvpView>
                                                                      presenter) {
+        return presenter;
+    }
+
+    @Provides
+    @PerActivity
+    ProfileMvpPresenter<ProfileMvpView> provideProfilePresenter(ProfilePresenter<ProfileMvpView>
+                                                               presenter) {
         return presenter;
     }
 }
